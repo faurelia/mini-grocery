@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresh Nook Corner Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="min-h-screen">
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-30" style="background: var(--green)">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <div
+            class="w-9 h-9 rounded-full flex items-center justify-center text-lg"
+            style="background: var(--amber)"
+          >
+            <i class="bi bi-shop" aria-hidden="true"></i>
+          </div>
+          <span class="font-display text-xl sm:text-2xl text-white leading-none"
+            >FRESH NOOK</span
+          >
+        </a>
+
+        <div class="hidden md:flex items-center gap-2 flex-1 max-w-md mx-4">
+          <div
+            class="flex items-center gap-2 w-full bg-white/95 rounded-full px-4 py-2"
+          >
+            <i
+              class="bi bi-search text-sm"
+              style="color: var(--green)"
+              aria-hidden="true"
+            ></i>
+            <input
+              type="text"
+              placeholder="Search for pandesal, eggs, Coke..."
+              class="bg-transparent outline-none text-sm w-full placeholder:text-neutral-500"
+            />
+          </div>
+        </div>
+
+        <div
+          class="hidden lg:flex items-center gap-1.5 text-xs text-white/90 border border-white/25 rounded-full px-3 py-1.5 shrink-0"
+        >
+          <span
+            class="w-1.5 h-1.5 rounded-full"
+            style="background: #7cd98a"
+          ></span>
+          Deliver to:
+          <span class="font-semibold text-white">Maple Residences, Blk C</span>
+        </div>
+
+        <a
+          href="cart.html"
+          class="ml-auto md:ml-0 relative shrink-0 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-full pl-3 pr-4 py-2 text-sm transition"
+        >
+          <span class="relative">
+            <i class="bi bi-basket2-fill" aria-hidden="true"></i>
+            <span
+              class="absolute -top-2 -right-2 text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full"
+              style="background: var(--amber); color: var(--ink)"
+              >3</span
+            >
+          </span>
+          <span class="hidden sm:inline font-semibold">₱ 486</span>
+        </a>
+
+        <a
+          href="account.html"
+          class="ml-2 inline-flex items-center gap-2 text-white hover:text-white/80"
+        >
+          <i class="bi bi-person-circle text-lg" aria-hidden="true"></i>
+          <span class="hidden sm:inline font-semibold">Account</span>
+        </a>
+      </div>
+
+      <!-- mobile search -->
+      <div class="md:hidden px-4 pb-3">
+        <div
+          class="flex items-center gap-2 w-full bg-white/95 rounded-full px-4 py-2"
+        >
+          <i
+            class="bi bi-search text-sm"
+            style="color: var(--green)"
+            aria-hidden="true"
+          ></i>
+          <input
+            type="text"
+            placeholder="Search products..."
+            class="bg-transparent outline-none text-sm w-full placeholder:text-neutral-500"
+          />
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="pt-10 pb-8" style="background: var(--green)">
+      <div
+        class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1.3fr_1fr] gap-8 items-center"
+      >
+        <div>
+          <div
+            class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold rounded-full px-3 py-1.5 mb-5"
+          >
+            <span
+              class="w-1.5 h-1.5 rounded-full"
+              style="background: #7cd98a"
+            ></span>
+            Open now &nbsp;·&nbsp; delivers within 800m
+          </div>
+          <h1
+            class="font-display text-white text-4xl sm:text-5xl md:text-6xl leading-[0.95] mb-5"
+          >
+            Sari-sari runs,<br />sorted in minutes.
+          </h1>
+          <p class="text-white/80 text-base max-w-md mb-7 leading-relaxed">
+            Fresh produce, everyday essentials, and pantry staples — dropped off
+            at your building's lobby, usually within the hour.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <button
+              class="font-semibold rounded-full px-6 py-3 text-sm"
+              style="background: var(--amber); color: var(--ink)"
+            >
+              <i class="bi bi-bag-check mr-1" aria-hidden="true"></i>Start
+              shopping
+            </button>
+            <button
+              class="font-semibold rounded-full px-6 py-3 text-sm border border-white/30 text-white"
+            >
+              <i class="bi bi-geo-alt mr-1" aria-hidden="true"></i>Check
+              delivery area
+            </button>
+          </div>
+        </div>
+
+        <!-- hero basket with price tags -->
+        <div class="relative hidden min-h-[280px] md:block">
+          <img
+            src="assets/images/hero.webp"
+            alt="Basket of everyday grocery essentials"
+            class="mx-auto h-[400px] w-full max-w-[400px] object-contain"
+          />
+          <div
+            class="absolute left-0 top-2 w-32 rounded-lg bg-white px-4 py-3 shadow-lg rotate-[-4deg]"
+          >
+            <div class="tag-hole mb-2"></div>
+            <p class="text-xs text-neutral-500">Fresh eggs</p>
+            <p class="font-display text-2xl" style="color: var(--tomato)">
+              ₱95
+            </p>
+          </div>
+          <div
+            class="absolute bottom-0 right-0 w-32 rounded-lg bg-white px-4 py-3 shadow-lg rotate-[3deg]"
+          >
+            <div class="tag-hole mb-2"></div>
+            <p class="text-xs text-neutral-500">Rice, 5kg</p>
+            <p class="font-display text-2xl" style="color: var(--green)">
+              ₱310
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="awning-edge-light"></div>
+
+    <!-- CATEGORY NAV -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 py-5">
+      <div class="flex gap-3 overflow-x-auto pb-1">
+        <!-- prettier-ignore -->
+        <a href="category.html" class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white" style="background: var(--green);">🥬 Produce</a>
+        <a
+          href="category.html"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+          >🥫 Canned &amp; Pantry</a
+        >
+        <a
+          href="category.html"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+          >🧴 Household</a
+        >
+        <a
+          href="category.html"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+          >🍞 Bakery</a
+        >
+        <a
+          href="category.html"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+          >🥤 Drinks</a
+        >
+        <a
+          href="category.html"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+          >🍫 Snacks</a
+        >
+        <a
+          href="category.html"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+          >🧊 Frozen</a
+        >
+      </div>
+    </nav>
+
+    <!-- DEALS STRIP -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-8">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <div
+          class="rounded-lg px-4 py-3 flex items-center justify-between"
+          style="background: var(--amber)"
+        >
+          <div class="flex items-center gap-3">
+            <i class="bi bi-cash-coin text-4xl shrink-0" aria-hidden="true"></i>
+            <div>
+              <p class="font-display text-lg mb-1" style="color: var(--ink)">
+                Buy 1 Take 1
+              </p>
+              <span class="text-sm text-black/60"
+                >Instant noodles, today only</span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="rounded-lg px-4 py-3 flex items-center justify-between text-white"
+          style="background: var(--tomato)"
+        >
+          <div class="flex items-center gap-3">
+            <i class="bi bi-tags text-4xl shrink-0" aria-hidden="true"></i>
+            <div>
+              <p class="font-display text-lg mb-1">15% off</p>
+              <span class="text-sm text-white/75">Orders over ₱500</span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="rounded-lg px-4 py-3 flex items-center justify-between"
+          style="background: var(--white); border: 1px solid #e5e0d3"
+        >
+          <div class="flex items-center gap-3">
+            <i class="bi bi-truck text-4xl shrink-0" aria-hidden="true"></i>
+            <div>
+              <p class="font-display text-lg mb-1" style="color: var(--green)">
+                Free delivery
+              </p>
+              <span class="text-sm text-neutral-500"
+                >Maple &amp; Acacia Residences</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+      <div class="flex items-end justify-between mb-4">
+        <h2 class="font-display text-2xl" style="color: var(--green)">
+          Today's picks
+        </h2>
+        <a
+          href="category.html"
+          class="text-sm font-semibold"
+          style="color: var(--tomato)"
+          >See all <i class="bi bi-arrow-right ml-1" aria-hidden="true"></i
+        ></a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Product card template x8 -->
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="relative rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/tomatoes.webp"
+              alt="Fresh tomatoes"
+              class="h-full w-full rounded-md object-contain"
+            />
+            <span
+              class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+              style="background: var(--tomato)"
+              >-10%</span
+            >
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Fresh Tomatoes
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">per kg</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg" style="color: var(--ink)"
+              >₱75</span
+            >
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/eggs.webp"
+              alt="Tray of fresh eggs"
+              class="h-full w-full rounded-md object-contain"
+            />
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Fresh Eggs (tray)
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">30 pcs</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱195</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="relative rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/jasmine-rice.webp"
+              alt="Bag of jasmine rice"
+              class="h-full w-full rounded-md object-contain"
+            />
+            <span
+              class="absolute top-2 left-2 text-[10px] font-bold px-2 py-2 rounded-full text-white leading-none"
+              style="background: var(--green)"
+              >Bestseller</span
+            >
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">Jasmine Rice</p>
+          <p class="text-xs text-neutral-500 mb-2">5 kg bag</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱310</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70 opacity-60"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/cooking-oil.webp"
+              alt="Cooking oil"
+              class="h-full w-full rounded-md object-contain"
+            />
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">Cooking Oil</p>
+          <p class="text-xs font-semibold mb-2" style="color: var(--tomato)">
+            Out of stock
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱120</span>
+            <button
+              class="w-8 h-8 rounded-full text-neutral-400 text-lg leading-none flex items-center justify-center bg-neutral-100"
+              disabled
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/instant-noodles.webp"
+              alt="Instant noodles"
+              class="h-full w-full rounded-md object-contain"
+            />
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Instant Noodles
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">pack of 5</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱65</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/bread.webp"
+              alt="Packaged whole wheat bread"
+              class="h-full w-full rounded-md object-contain"
+            />
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Whole Wheat Bread
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">1 loaf</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱95</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="relative rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/mineral-water.webp"
+              alt="Pack of mineral water bottles"
+              class="h-full w-full rounded-md object-contain"
+            />
+            <span
+              class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+              style="background: var(--tomato)"
+              >-10%</span
+            >
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Mineral Water
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">6 x 500 ml bottles</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱120</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/detergent.webp"
+              alt="Laundry detergent"
+              class="h-full w-full rounded-md object-contain"
+            />
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Laundry Detergent
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">1L bottle</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱88</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="stripe-bg h-2"></div>
+    <footer class="text-white pt-10 pb-8" style="background: var(--green-dark)">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 grid sm:grid-cols-3 gap-8">
+        <div>
+          <span class="font-display text-xl">FRESH NOOK</span>
+          <p class="text-white/60 text-sm mt-3 leading-relaxed">
+            <i class="bi bi-shop mr-1" aria-hidden="true"></i>Corner Mart &amp;
+            Sari-sari<br /><i class="bi bi-geo-alt mr-1" aria-hidden="true"></i
+            >Blk 4 Lot 12, Maple St.<br />Calamba, Laguna
+          </p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-white/50 mb-2">
+            <i class="bi bi-clock mr-1" aria-hidden="true"></i>STORE HOURS
+          </p>
+          <p class="text-sm text-white/80 leading-relaxed">
+            Mon–Sat: 6:00 AM – 9:00 PM<br />Sun: 7:00 AM – 6:00 PM
+          </p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-white/50 mb-2">
+            <i class="bi bi-chat-dots mr-1" aria-hidden="true"></i>GET IN TOUCH
+          </p>
+          <p class="text-sm text-white/80 leading-relaxed">
+            <i class="bi bi-telephone mr-1" aria-hidden="true"></i>0917 000
+            0000<br /><i
+              class="bi bi-chat-square-text mr-1"
+              aria-hidden="true"
+            ></i
+            >Messenger · Viber
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MOBILE STICKY CART BAR -->
+    <div class="fixed bottom-0 left-0 right-0 sm:hidden px-4 pb-4 pt-2 z-40">
+      <a
+        href="cart.html"
+        class="w-full flex items-center justify-between rounded-full px-5 py-3.5 text-white shadow-lg"
+        style="background: var(--green)"
+      >
+        <span class="text-sm font-semibold"
+          ><i class="bi bi-basket2-fill mr-1" aria-hidden="true"></i>3
+          items</span
+        >
+        <span class="font-display text-base">View cart · ₱486</span>
+      </a>
+    </div>
+  </body>
+</html>

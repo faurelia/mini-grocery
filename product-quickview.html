@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quick view — Fresh Nook Corner Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .qty-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1;
+        border: 1.5px solid var(--ink);
+        background: var(--white);
+        transition: transform 120ms ease;
+      }
+      .qty-btn:hover {
+        transform: translateY(-1px);
+      }
+
+      /* variant chip */
+      .chip {
+        border: 1.5px solid #e5e0d3;
+        border-radius: 0.5rem;
+        padding: 0.55rem 0.5rem;
+        text-align: center;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #4a4438;
+        transition:
+          border-color 120ms ease,
+          background 120ms ease;
+      }
+      .chip:hover {
+        border-color: #c9bfa4;
+      }
+      .chip.is-selected {
+        border-color: var(--green);
+        background: #f4f8f6;
+        color: var(--green);
+      }
+
+      /* overlay + sheet */
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(27, 27, 22, 0.45);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 50;
+      }
+      @media (min-width: 640px) {
+        .overlay {
+          align-items: center;
+        }
+      }
+      .sheet {
+        background: var(--paper-light);
+        width: 100%;
+        max-width: 640px;
+        max-height: 92vh;
+        overflow-y: auto;
+        border-radius: 1.25rem 1.25rem 0 0;
+      }
+      @media (min-width: 640px) {
+        .sheet {
+          border-radius: 1rem;
+          max-height: 85vh;
+        }
+      }
+      .drag-handle {
+        width: 36px;
+        height: 4px;
+        border-radius: 999px;
+        background: #d8cfb8;
+        margin: 10px auto 0;
+      }
+      @media (min-width: 640px) {
+        .drag-handle {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- BACKGROUND: storefront grid, dimmed by the overlay -->
+    <header class="sticky top-0 z-10" style="background: var(--green)">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
+        <div class="flex items-center gap-2 shrink-0">
+          <div
+            class="w-9 h-9 rounded-full flex items-center justify-center text-lg"
+            style="background: var(--amber)"
+          >
+            <i class="bi bi-shop" aria-hidden="true"></i>
+          </div>
+          <span class="font-display text-xl sm:text-2xl text-white leading-none"
+            >FRESH NOOK</span
+          >
+        </div>
+        <div class="hidden md:flex items-center gap-2 flex-1 max-w-md mx-4">
+          <div
+            class="flex items-center gap-2 w-full bg-white/95 rounded-full px-4 py-2"
+          >
+            <i
+              class="bi bi-search text-sm"
+              style="color: var(--green)"
+              aria-hidden="true"
+            ></i>
+            <input
+              type="text"
+              placeholder="Search for pandesal, eggs, Coke..."
+              class="bg-transparent outline-none text-sm w-full placeholder:text-neutral-500"
+            />
+          </div>
+        </div>
+        <a
+          href="cart.html"
+          class="ml-auto md:ml-0 relative shrink-0 flex items-center gap-2 bg-white/10 text-white rounded-full pl-3 pr-4 py-2 text-sm"
+        >
+          <span class="relative"
+            ><i class="bi bi-basket2-fill" aria-hidden="true"></i
+            ><span
+              class="absolute -top-2 -right-2 text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full"
+              style="background: var(--amber); color: var(--ink)"
+              >3</span
+            ></span
+          >
+          <span class="hidden sm:inline font-semibold">₱ 486</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      <h2 class="font-display text-2xl mb-4" style="color: var(--green)">
+        Today's picks
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            🍅
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Fresh Tomatoes
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">per kg</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱75</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            🍚
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">Jasmine Rice</p>
+          <p class="text-xs text-neutral-500 mb-2">5 kg bag</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱310</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <!-- this card is the one that opened the sheet -->
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border-2 ring-2"
+          style="border-color: var(--green); --tw-ring-color: var(--green)"
+        >
+          <div
+            class="relative rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            🥤
+            <span
+              class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+              style="background: var(--tomato)"
+              >-10%</span
+            >
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">
+            Softdrinks, 1.5L
+          </p>
+          <p class="text-xs text-neutral-500 mb-2">assorted</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱68</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div
+          class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+        >
+          <div
+            class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+            style="background: var(--paper-light)"
+          >
+            🥖
+          </div>
+          <p class="text-sm font-semibold leading-tight mb-0.5">Pandesal</p>
+          <p class="text-xs text-neutral-500 mb-2">pack of 10</p>
+          <div class="flex items-center justify-between">
+            <span class="font-display text-lg">₱55</span>
+            <button
+              class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+              style="background: var(--green)"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-neutral-500 mt-4">
+        ↑ tapping "Softdrinks, 1.5L" is what opened the sheet below — it needs a
+        flavor pick, which a card alone can't hold.
+      </p>
+    </main>
+
+    <!-- QUICK VIEW SHEET -->
+    <div class="overlay">
+      <div class="sheet">
+        <div class="drag-handle"></div>
+
+        <div class="p-5 sm:p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div
+              class="rounded-md w-24 h-24 flex items-center justify-center text-5xl shrink-0"
+              style="background: var(--paper)"
+            >
+              🥤
+            </div>
+            <button
+              class="w-8 h-8 rounded-full flex items-center justify-center text-lg bg-white border border-neutral-200 shrink-0"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2 mb-1">
+            <span
+              class="text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+              style="background: var(--tomato)"
+              >-10% today</span
+            >
+          </div>
+          <h2 class="font-display text-2xl mb-1" style="color: var(--ink)">
+            Softdrinks, 1.5L
+          </h2>
+          <p class="text-sm text-neutral-500 mb-5">
+            Chilled on request &nbsp;·&nbsp; sold per bottle
+          </p>
+
+          <!-- FLAVOR / VARIANT PICKER -->
+          <div class="mb-5">
+            <p class="text-xs font-semibold text-neutral-500 mb-2">Flavor</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div class="chip is-selected">Coke</div>
+              <div class="chip">Sprite</div>
+              <div class="chip">Royal</div>
+              <div class="chip" style="opacity: 0.5; cursor: not-allowed">
+                Mtn Dew<br /><span class="text-[10px] font-normal"
+                  >Sold out</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- CHILLED TOGGLE, an option only a detail view has room for -->
+          <div
+            class="mb-5 flex items-center justify-between rounded-lg px-3.5 py-3 bg-white border border-neutral-200/70"
+          >
+            <div>
+              <p class="text-sm font-semibold">Make it ice cold</p>
+              <p class="text-xs text-neutral-500">
+                Pulled from the chiller before packing
+              </p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" checked class="sr-only peer" />
+              <div
+                class="w-10 h-6 rounded-full bg-neutral-200 peer-checked:bg-[var(--green)] transition-colors"
+              ></div>
+              <div
+                class="absolute left-1 top-1 w-4 h-4 rounded-full bg-white transition-transform peer-checked:translate-x-4"
+              ></div>
+            </label>
+          </div>
+
+          <div class="receipt-dash mb-5"></div>
+
+          <!-- QUANTITY + ADD -->
+          <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <button class="qty-btn" aria-label="Decrease quantity">
+                <i class="bi bi-dash" aria-hidden="true"></i>
+              </button>
+              <span class="w-5 text-center text-base font-semibold">2</span>
+              <button class="qty-btn" aria-label="Increase quantity">
+                <i class="bi bi-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+            <button
+              class="flex-1 rounded-full py-3.5 text-sm font-semibold text-white flex items-center justify-center gap-2"
+              style="background: var(--green)"
+            >
+              Add to basket <span class="font-display">· ₱122</span>
+            </button>
+          </div>
+          <p class="text-[11px] text-neutral-400 text-center mt-3">
+            ₱68 each &nbsp;·&nbsp; 10% off applied
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

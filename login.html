@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in — Fresh Nook Corner Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      input[type="text"],
+      input[type="tel"],
+      input[type="password"],
+      input[type="email"] {
+        background: var(--paper-light);
+        border: 1px solid #e5e0d3;
+      }
+      input[type="text"]:focus,
+      input[type="tel"]:focus,
+      input[type="password"]:focus,
+      input[type="email"]:focus {
+        outline: none;
+        border-color: var(--green);
+        background: var(--white);
+      }
+
+      /* tab toggle, styled like a two-slot price tag rather than generic pill tabs */
+      .tab-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: var(--paper-light);
+        border: 1px solid #e5e0d3;
+        border-radius: 0.6rem;
+        padding: 4px;
+      }
+      .tab-btn {
+        text-align: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.6rem 0;
+        border-radius: 0.4rem;
+        color: #6b6555;
+        cursor: pointer;
+        transition: all 150ms ease;
+      }
+      .tab-btn.is-active {
+        background: var(--white);
+        color: var(--green);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      }
+
+      .panel {
+        display: none;
+      }
+      .panel.is-active {
+        display: flex;
+      }
+
+      .eyebrow-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        color: var(--green);
+        font-weight: 600;
+        background: #f4f8f6;
+        border: 1px dashed #b9d4c8;
+        border-radius: 999px;
+        padding: 0.3rem 0.7rem;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- TOP BAR (matches storefront/cart/checkout) -->
+    <header class="sticky top-0 z-30" style="background: var(--green)">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <div
+            class="w-9 h-9 rounded-full flex items-center justify-center text-lg"
+            style="background: var(--amber)"
+          >
+            <i class="bi bi-shop" aria-hidden="true"></i>
+          </div>
+          <span class="font-display text-xl sm:text-2xl text-white leading-none"
+            >FRESH NOOK</span
+          >
+        </a>
+        <a
+          href="checkout.html"
+          class="ml-auto text-sm text-white/80 hover:text-white flex items-center gap-1.5"
+        >
+          <i class="bi bi-arrow-left" aria-hidden="true"></i> Back to checkout
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-16">
+      <div class="flex items-end justify-between mb-6 flex-wrap gap-3">
+        <h1
+          class="font-display text-3xl sm:text-4xl"
+          style="color: var(--green)"
+        >
+          Almost there
+        </h1>
+        <div class="flex items-center gap-2">
+          <div class="step-chip done">
+            <span class="step-dot"
+              ><i class="bi bi-check2" aria-hidden="true"></i></span
+            >Basket
+          </div>
+          <div class="step-line"></div>
+          <div class="step-chip done">
+            <span class="step-dot"
+              ><i class="bi bi-check2" aria-hidden="true"></i></span
+            >Checkout
+          </div>
+          <div class="step-line"></div>
+          <div class="step-chip active">
+            <span class="step-dot">3</span>Sign in
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-[1fr_360px] gap-6 items-start">
+        <!-- LEFT: AUTH CARD -->
+        <div
+          class="bg-white rounded-lg p-5 sm:p-7 shadow-sm border border-neutral-200/70"
+        >
+          <p class="text-sm text-neutral-600 mb-5 leading-relaxed">
+            We've kept your delivery address, timing, and payment choice from
+            checkout. Sign in or create an account to place the order.
+          </p>
+
+          <div class="tab-toggle mb-6">
+            <div
+              class="tab-btn is-active"
+              onclick="showPanel('login')"
+              id="tab-login"
+            >
+              Log in
+            </div>
+            <div class="tab-btn" onclick="showPanel('signup')" id="tab-signup">
+              Create account
+            </div>
+          </div>
+
+          <!-- LOGIN PANEL -->
+          <form class="panel is-active flex-col gap-4" id="panel-login">
+            <div>
+              <label class="block text-xs font-semibold text-neutral-500 mb-1.5"
+                >Mobile number or email</label
+              >
+              <input
+                type="text"
+                placeholder="0917 000 0000"
+                class="w-full text-sm rounded-md px-3 py-2.5 placeholder:text-neutral-400"
+              />
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block text-xs font-semibold text-neutral-500"
+                  >Password</label
+                >
+                <a
+                  href="#"
+                  class="text-xs font-medium"
+                  style="color: var(--tomato)"
+                  >Forgot?</a
+                >
+              </div>
+              <input
+                type="password"
+                placeholder="••••••••"
+                class="w-full text-sm rounded-md px-3 py-2.5 placeholder:text-neutral-400"
+              />
+            </div>
+
+            <button
+              type="button"
+              class="w-full mt-1 rounded-full py-3.5 text-sm font-semibold text-white"
+              style="background: var(--green)"
+            >
+              Log in &amp; place order
+            </button>
+
+            <p class="text-xs text-neutral-500 text-center mt-1">
+              New here?
+              <a
+                href="#"
+                class="font-semibold"
+                style="color: var(--green)"
+                onclick="showPanel('signup')"
+                >Create an account</a
+              >
+            </p>
+          </form>
+
+          <!-- SIGNUP PANEL -->
+          <form class="panel flex-col gap-4" id="panel-signup">
+            <div>
+              <label class="block text-xs font-semibold text-neutral-500 mb-1.5"
+                >Full name</label
+              >
+              <input
+                type="text"
+                placeholder="Juana Dela Cruz"
+                class="w-full text-sm rounded-md px-3 py-2.5 placeholder:text-neutral-400"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-neutral-500 mb-1.5"
+                >Mobile number</label
+              >
+              <input
+                type="tel"
+                placeholder="0917 000 0000"
+                class="w-full text-sm rounded-md px-3 py-2.5 placeholder:text-neutral-400"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-neutral-500 mb-1.5"
+                >Password</label
+              >
+              <input
+                type="password"
+                placeholder="At least 8 characters"
+                class="w-full text-sm rounded-md px-3 py-2.5 placeholder:text-neutral-400"
+              />
+            </div>
+
+            <div class="eyebrow-tag w-fit">
+              <i class="bi bi-geo-alt mr-1" aria-hidden="true"></i>Maple
+              Residences, Blk C &nbsp;·&nbsp;
+              <i class="bi bi-cash-stack mr-1" aria-hidden="true"></i>Cash on
+              delivery
+            </div>
+            <p class="text-xs text-neutral-500 -mt-2">
+              This will be saved to your account for next time.
+            </p>
+
+            <button
+              type="button"
+              class="w-full mt-1 rounded-full py-3.5 text-sm font-semibold text-white"
+              style="background: var(--green)"
+            >
+              Create account &amp; place order
+            </button>
+
+            <p
+              class="text-[11px] text-neutral-400 text-center leading-relaxed mt-1"
+            >
+              By continuing, you agree to Fresh Nook's Terms and Privacy Policy.
+            </p>
+
+            <p class="text-xs text-neutral-500 text-center">
+              Already have an account?
+              <a
+                href="#"
+                class="font-semibold"
+                style="color: var(--green)"
+                onclick="showPanel('login')"
+                >Log in</a
+              >
+            </p>
+          </form>
+        </div>
+
+        <!-- RIGHT: RECEIPT SUMMARY (carried over from checkout) -->
+        <aside
+          class="bg-white rounded-lg shadow-sm border border-neutral-200/70 overflow-hidden md:sticky md:top-24"
+        >
+          <div class="p-5">
+            <p class="font-display text-lg mb-4" style="color: var(--green)">
+              Order summary
+            </p>
+
+            <div class="flex flex-col gap-2.5 text-sm mb-4">
+              <div class="flex justify-between text-neutral-600">
+                <span>Jasmine Rice ×1</span>
+                <span class="font-medium" style="color: var(--ink)">₱310</span>
+              </div>
+              <div class="flex justify-between text-neutral-600">
+                <span>Instant Noodles ×2</span>
+                <span class="font-medium" style="color: var(--ink)">₱130</span>
+              </div>
+            </div>
+
+            <div class="receipt-dash mb-3"></div>
+
+            <div class="flex flex-col gap-2.5 text-sm">
+              <div class="flex justify-between text-neutral-600">
+                <span>Subtotal</span>
+                <span class="font-medium" style="color: var(--ink)">₱440</span>
+              </div>
+              <div class="flex justify-between text-neutral-600">
+                <span>Delivery to Maple Residences, Blk C</span>
+                <span class="font-medium" style="color: var(--ink)">₱46</span>
+              </div>
+              <div class="flex justify-between" style="color: var(--tomato)">
+                <span>Buy 1 Take 1 · Noodles</span>
+                <span>included</span>
+              </div>
+            </div>
+
+            <div
+              class="mt-4 flex items-center gap-2 rounded-md px-3 py-2"
+              style="background: #fbf0dc"
+            >
+              <i class="bi bi-ticket-perforated text-sm" aria-hidden="true"></i>
+              <span class="text-xs flex-1 text-neutral-600">Promo applied</span>
+              <span class="text-xs font-semibold" style="color: var(--green)"
+                >−₱15</span
+              >
+            </div>
+
+            <div class="receipt-dash my-4"></div>
+
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">Total</span>
+              <span class="font-display text-2xl" style="color: var(--green)"
+                >₱471</span
+              >
+            </div>
+
+            <p
+              class="text-[11px] text-neutral-400 text-center mt-3 leading-relaxed"
+            >
+              Nothing you entered on checkout is lost — sign in to send it
+              through.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      function showPanel(name) {
+        const isLogin = name === "login";
+        document
+          .getElementById("panel-login")
+          .classList.toggle("is-active", isLogin);
+        document
+          .getElementById("panel-signup")
+          .classList.toggle("is-active", !isLogin);
+        document
+          .getElementById("tab-login")
+          .classList.toggle("is-active", isLogin);
+        document
+          .getElementById("tab-signup")
+          .classList.toggle("is-active", !isLogin);
+      }
+    </script>
+  </body>
+</html>

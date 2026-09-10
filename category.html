@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produce — Fresh Nook Corner Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* filter checkboxes styled like little shelf tags, consistent with the "pick" pattern used on checkout */
+      .filter-row {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.85rem;
+        color: #4a4438;
+        cursor: pointer;
+      }
+      .filter-box {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 1.5px solid #b9ad8e;
+        background: var(--white);
+        position: relative;
+        flex-shrink: 0;
+      }
+      .filter-row input {
+        position: absolute;
+        opacity: 0;
+      }
+      .filter-row input:checked ~ .filter-box {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .filter-row input:checked ~ .filter-box::after {
+        content: "✓";
+        position: absolute;
+        inset: 0;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      select.sort-select {
+        background: var(--white);
+        border: 1px solid #e5e0d3;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- TOP BAR (matches storefront) -->
+    <header class="sticky top-0 z-30" style="background: var(--green)">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="index.html" class="flex items-center gap-2 shrink-0">
+            <div
+              class="w-9 h-9 rounded-full flex items-center justify-center text-lg"
+              style="background: var(--amber)"
+            >
+              <i class="bi bi-shop" aria-hidden="true"></i>
+            </div>
+            <span
+              class="font-display text-xl sm:text-2xl text-white leading-none"
+              >FRESH NOOK</span
+            >
+          </a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-2 flex-1 max-w-md mx-4">
+          <div
+            class="flex items-center gap-2 w-full bg-white/95 rounded-full px-4 py-2"
+          >
+            <i
+              class="bi bi-search text-sm"
+              style="color: var(--green)"
+              aria-hidden="true"
+            ></i>
+            <input
+              type="text"
+              placeholder="Search for pandesal, eggs, Coke..."
+              class="bg-transparent outline-none text-sm w-full placeholder:text-neutral-500"
+            />
+          </div>
+        </div>
+
+        <div
+          class="hidden lg:flex items-center gap-1.5 text-xs text-white/90 border border-white/25 rounded-full px-3 py-1.5 shrink-0"
+        >
+          <span
+            class="w-1.5 h-1.5 rounded-full"
+            style="background: #7cd98a"
+          ></span>
+          Deliver to:
+          <span class="font-semibold text-white">Maple Residences, Blk C</span>
+        </div>
+
+        <a
+          href="cart.html"
+          class="ml-auto md:ml-0 relative shrink-0 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-full pl-3 pr-4 py-2 text-sm transition"
+        >
+          <span class="relative">
+            <i class="bi bi-basket2-fill" aria-hidden="true"></i>
+            <span
+              class="absolute -top-2 -right-2 text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full"
+              style="background: var(--amber); color: var(--ink)"
+              >3</span
+            >
+          </span>
+          <span class="hidden sm:inline font-semibold">₱ 486</span>
+        </a>
+
+        <a
+          href="account.html"
+          class="ml-2 inline-flex items-center gap-2 text-white hover:text-white/80"
+        >
+          <i class="bi bi-person-circle text-lg" aria-hidden="true"></i>
+          <span class="hidden sm:inline font-semibold">Account</span>
+        </a>
+      </div>
+
+      <div class="md:hidden px-4 pb-3">
+        <div
+          class="flex items-center gap-2 w-full bg-white/95 rounded-full px-4 py-2"
+        >
+          <i
+            class="bi bi-search text-sm"
+            style="color: var(--green)"
+            aria-hidden="true"
+          ></i>
+          <input
+            type="text"
+            placeholder="Search products..."
+            class="bg-transparent outline-none text-sm w-full placeholder:text-neutral-500"
+          />
+        </div>
+      </div>
+    </header>
+
+    <!-- CATEGORY NAV (same strip as storefront, Produce now the active pill) -->
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 py-5">
+      <div class="flex gap-3 overflow-x-auto pb-1">
+        <button
+          type="button"
+          data-category="produce"
+          onclick="filterProducts('produce', this)"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white"
+          style="background: var(--green)"
+        >
+          🥬 Produce
+        </button>
+        <button
+          type="button"
+          data-category="pantry"
+          onclick="filterProducts('pantry', this)"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+        >
+          🥫 Canned &amp; Pantry
+        </button>
+        <button
+          type="button"
+          data-category="household"
+          onclick="filterProducts('household', this)"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+        >
+          🧴 Household
+        </button>
+        <button
+          type="button"
+          data-category="bakery"
+          onclick="filterProducts('bakery', this)"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+        >
+          🍞 Bakery
+        </button>
+        <button
+          type="button"
+          data-category="drinks"
+          onclick="filterProducts('drinks', this)"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+        >
+          🥤 Drinks
+        </button>
+        <button
+          type="button"
+          data-category="snacks"
+          onclick="filterProducts('snacks', this)"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+        >
+          🍫 Snacks
+        </button>
+        <button
+          type="button"
+          data-category="frozen"
+          onclick="filterProducts('frozen', this)"
+          class="shrink-0 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold bg-white border border-neutral-200"
+        >
+          🧊 Frozen
+        </button>
+      </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+      <!-- BREADCRUMB + HEADER -->
+      <div class="mb-5">
+        <p class="text-xs text-neutral-500 mb-2">
+          Home <span class="mx-1">/</span>
+          <span style="color: var(--green); font-weight: 600">Produce</span>
+        </p>
+        <div class="flex items-end justify-between flex-wrap gap-3">
+          <div>
+            <h1
+              class="font-display text-3xl sm:text-4xl"
+              style="color: var(--green)"
+            >
+              <span id="category-title">🥬 Produce</span>
+            </h1>
+            <p class="text-sm text-neutral-500 mt-1">
+              <span id="item-count">6 items</span> &nbsp;·&nbsp; sourced fresh
+              from Calamba public market, most mornings
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="text-xs text-neutral-500 hidden sm:inline"
+              >Sort by</label
+            >
+            <select
+              class="sort-select text-sm rounded-full px-4 py-2 outline-none"
+            >
+              <option>Recommended</option>
+              <option>Price: low to high</option>
+              <option>Price: high to low</option>
+              <option>Newest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-[200px_1fr] gap-6 items-start">
+        <!-- FILTER SIDEBAR (collapses above grid on mobile) -->
+        <aside
+          class="bg-white rounded-lg p-4 shadow-sm border border-neutral-200/70 md:sticky md:top-24"
+        >
+          <p class="font-display text-base mb-3" style="color: var(--green)">
+            Filter
+          </p>
+
+          <div class="mb-4">
+            <p class="text-xs font-semibold text-neutral-400 mb-2">
+              Availability
+            </p>
+            <div class="flex flex-col gap-2.5">
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="in-stock" checked /><span
+                  class="filter-box"
+                ></span
+                >In stock</label
+              >
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="on-sale" /><span
+                  class="filter-box"
+                ></span
+                >On sale</label
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <p class="text-xs font-semibold text-neutral-400 mb-2">Type</p>
+            <div class="flex flex-col gap-2.5">
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="vegetables" /><span
+                  class="filter-box"
+                ></span
+                >Vegetables</label
+              >
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="fruits" /><span
+                  class="filter-box"
+                ></span
+                >Fruits</label
+              >
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="herbs" /><span
+                  class="filter-box"
+                ></span
+                >Herbs &amp; aromatics</label
+              >
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs font-semibold text-neutral-400 mb-2">Price</p>
+            <div class="flex flex-col gap-2.5">
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="under-50" /><span
+                  class="filter-box"
+                ></span
+                >Under ₱50</label
+              >
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="50-100" /><span
+                  class="filter-box"
+                ></span
+                >₱50–₱100</label
+              >
+              <label class="filter-row"
+                ><input type="checkbox" data-filter="over-100" /><span
+                  class="filter-box"
+                ></span
+                >Over ₱100</label
+              >
+            </div>
+          </div>
+        </aside>
+
+        <!-- PRODUCT GRID (same card pattern as "Today's picks" on the storefront, more items) -->
+        <section
+          id="product-grid"
+          class="grid grid-cols-2 sm:grid-cols-3 gap-4"
+        >
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="produce"
+            data-types="vegetables"
+            data-price="75"
+            data-sale
+          >
+            <div
+              class="relative rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/tomatoes.webp"
+                alt="Fresh tomatoes"
+                class="h-full w-full rounded-md object-contain"
+              />
+              <span
+                class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+                style="background: var(--tomato)"
+                >-10%</span
+              >
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Fresh Tomatoes
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">per kg</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱75</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="produce"
+            data-types="vegetables herbs"
+            data-price="90"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/red-onion.webp"
+                alt="Red onions"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">Red Onions</p>
+            <p class="text-xs text-neutral-500 mb-2">per kg</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱90</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="produce"
+            data-types="herbs"
+            data-price="48"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/garlic.webp"
+                alt="Fresh garlic"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">Garlic</p>
+            <p class="text-xs text-neutral-500 mb-2">250 g</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱48</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="produce"
+            data-types="fruits"
+            data-price="60"
+          >
+            <div
+              class="relative rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/bananas.webp"
+                alt="Saba bananas"
+                class="h-full w-full rounded-md object-contain"
+              />
+              <span
+                class="absolute top-2 left-2 text-[10px] font-bold px-2 py-2 rounded-full text-white leading-none"
+                style="background: var(--green)"
+                >Bestseller</span
+              >
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Saba Bananas
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">per kg</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱60</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="drinks"
+            data-price="95"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/fresh-milk.webp"
+                alt="Fresh milk"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">Fresh Milk</p>
+            <p class="text-xs text-neutral-500 mb-2">1L carton</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱95</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70 opacity-60"
+            data-category="pantry"
+            data-price="150"
+            data-in-stock="false"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/cheddar-cheese.webp"
+                alt="Cheddar cheese"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Cheddar Cheese
+            </p>
+            <p class="text-xs font-semibold mb-2" style="color: var(--tomato)">
+              Out of stock
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱150</span>
+              <button
+                class="w-8 h-8 rounded-full text-neutral-400 text-lg leading-none flex items-center justify-center bg-neutral-100"
+                disabled
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="produce"
+            data-types="vegetables"
+            data-price="68"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/potatoes.webp"
+                alt="Fresh potatoes"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">Potatoes</p>
+            <p class="text-xs text-neutral-500 mb-2">per kg</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱68</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="snacks"
+            data-price="65"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/potatos-chips.webp"
+                alt="Potato chips"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Potato Chips
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">100 g bag</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱65</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="produce"
+            data-types="vegetables"
+            data-price="42"
+            data-sale
+          >
+            <div
+              class="relative rounded-md aspect-square flex items-center justify-center text-4xl mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/cucumbers.webp"
+                alt="Fresh cucumbers"
+                class="h-full w-full rounded-md object-contain"
+              />
+              <span
+                class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+                style="background: var(--tomato)"
+                >-10%</span
+              >
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">Cucumber</p>
+            <p class="text-xs text-neutral-500 mb-2">per kg</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱42</span>
+              <button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="pantry"
+            data-price="195"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/eggs.webp"
+                alt="Fresh eggs"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">Fresh Eggs</p>
+            <p class="text-xs text-neutral-500 mb-2">30-piece tray</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱195</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="pantry"
+            data-price="310"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/jasmine-rice.webp"
+                alt="Jasmine rice"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Jasmine Rice
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">5 kg bag</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱310</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="pantry"
+            data-price="110"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/butter.webp"
+                alt="Butter"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Salted Butter
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">225 g pack</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱110</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="pantry"
+            data-price="120"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/cooking-oil.webp"
+                alt="Cooking oil"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Cooking Oil
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">1 L bottle</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱120</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="pantry"
+            data-price="65"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/instant-noodles.webp"
+                alt="Instant noodles"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Instant Noodles
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">pack of 5</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱65</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="household"
+            data-price="88"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/detergent.webp"
+                alt="Laundry detergent"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Laundry Detergent
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">1 L bottle</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱88</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="bakery"
+            data-price="95"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/bread.webp"
+                alt="Whole wheat bread"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Whole Wheat Bread
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">1 loaf</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱95</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="bakery"
+            data-price="75"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/sliced-bread.webp"
+                alt="Sliced bread"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Sliced Bread
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">400 g loaf</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱75</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="drinks"
+            data-price="120"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/mineral-water.webp"
+                alt="Mineral water"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Mineral Water
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">6 x 500 ml bottles</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱120</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[-1deg] shadow-sm border border-neutral-200/70"
+            data-category="frozen"
+            data-price="220"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/chicken-drumstick.webp"
+                alt="Chicken drumsticks"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Chicken Drumsticks
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">per kg</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱220</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="card-rotate bg-white rounded-lg p-3 rotate-[1deg] shadow-sm border border-neutral-200/70"
+            data-category="frozen"
+            data-price="280"
+          >
+            <div
+              class="rounded-md aspect-square flex items-center justify-center mb-3"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/pork-slices.webp"
+                alt="Sliced pork"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <p class="text-sm font-semibold leading-tight mb-0.5">
+              Pork Slices
+            </p>
+            <p class="text-xs text-neutral-500 mb-2">per kg</p>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-lg">₱280</span
+              ><button
+                class="w-8 h-8 rounded-full text-white text-lg leading-none flex items-center justify-center"
+                style="background: var(--green)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- LOAD MORE, echoing the "See all →" link style from the storefront -->
+      <div class="flex justify-center mt-8">
+        <button
+          class="text-sm font-semibold rounded-full px-6 py-2.5 border"
+          style="color: var(--green); border-color: #d8cfb8"
+        >
+          Show more produce
+        </button>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <div class="stripe-bg h-2"></div>
+    <footer class="text-white pt-10 pb-8" style="background: var(--green-dark)">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 grid sm:grid-cols-3 gap-8">
+        <div>
+          <span class="font-display text-xl">FRESH NOOK</span>
+          <p class="text-white/60 text-sm mt-3 leading-relaxed">
+            <i class="bi bi-shop mr-1" aria-hidden="true"></i>Corner Mart &amp;
+            Sari-sari<br /><i class="bi bi-geo-alt mr-1" aria-hidden="true"></i
+            >Blk 4 Lot 12, Maple St.<br />Calamba, Laguna
+          </p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-white/50 mb-2">
+            <i class="bi bi-clock mr-1" aria-hidden="true"></i>STORE HOURS
+          </p>
+          <p class="text-sm text-white/80 leading-relaxed">
+            Mon–Sat: 6:00 AM – 9:00 PM<br />Sun: 7:00 AM – 6:00 PM
+          </p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-white/50 mb-2">
+            <i class="bi bi-chat-dots mr-1" aria-hidden="true"></i>GET IN TOUCH
+          </p>
+          <p class="text-sm text-white/80 leading-relaxed">
+            <i class="bi bi-telephone mr-1" aria-hidden="true"></i>0917 000
+            0000<br /><i
+              class="bi bi-chat-square-text mr-1"
+              aria-hidden="true"
+            ></i
+            >Messenger · Viber
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MOBILE STICKY CART BAR -->
+    <div class="fixed bottom-0 left-0 right-0 sm:hidden px-4 pb-4 pt-2 z-40">
+      <a
+        href="cart.html"
+        class="w-full flex items-center justify-between rounded-full px-5 py-3.5 text-white shadow-lg"
+        style="background: var(--green)"
+      >
+        <span class="text-sm font-semibold"
+          ><i class="bi bi-basket2-fill mr-1" aria-hidden="true"></i>3
+          items</span
+        >
+        <span class="font-display text-base"
+          ><i class="bi bi-basket2-fill mr-1" aria-hidden="true"></i>View cart ·
+          ₱486</span
+        >
+      </a>
+    </div>
+
+    <script>
+      const categoryLabels = {
+        produce: "Produce",
+        pantry: "Canned & Pantry",
+        household: "Household",
+        bakery: "Bakery",
+        drinks: "Drinks",
+        snacks: "Snacks",
+        frozen: "Frozen",
+      };
+
+      let activeCategory = "produce";
+
+      function applyFilters() {
+        const selectedFilters = new Set(
+          Array.from(
+            document.querySelectorAll("[data-filter]:checked"),
+            function (input) {
+              return input.dataset.filter;
+            },
+          ),
+        );
+        const cards = document.querySelectorAll("#product-grid > div");
+        const typeFilters = ["vegetables", "fruits", "herbs"].filter(
+          function (filter) {
+            return selectedFilters.has(filter);
+          },
+        );
+        const priceFilters = ["under-50", "50-100", "over-100"].filter(
+          function (filter) {
+            return selectedFilters.has(filter);
+          },
+        );
+        let visibleCount = 0;
+
+        cards.forEach(function (card) {
+          const types = card.dataset.types?.split(" ") || [];
+          const price = Number(card.dataset.price);
+          const matchesType =
+            typeFilters.length === 0 ||
+            typeFilters.some(function (filter) {
+              return types.includes(filter);
+            });
+          const matchesPrice =
+            priceFilters.length === 0 ||
+            priceFilters.some(function (filter) {
+              return (
+                (filter === "under-50" && price < 50) ||
+                (filter === "50-100" && price >= 50 && price <= 100) ||
+                (filter === "over-100" && price > 100)
+              );
+            });
+          const isInStock = card.dataset.inStock !== "false";
+          const matchesAvailability =
+            !selectedFilters.has("in-stock") || isInStock;
+          const matchesSale =
+            !selectedFilters.has("on-sale") || card.hasAttribute("data-sale");
+          const isVisible =
+            card.dataset.category === activeCategory &&
+            matchesType &&
+            matchesPrice &&
+            matchesAvailability &&
+            matchesSale;
+          card.hidden = !isVisible;
+          if (isVisible) visibleCount += 1;
+        });
+
+        document.getElementById("category-title").textContent =
+          categoryLabels[activeCategory];
+        document.getElementById("item-count").textContent =
+          visibleCount + " items";
+      }
+
+      function filterProducts(category, selectedButton) {
+        activeCategory = category;
+
+        document
+          .querySelectorAll("nav [data-category]")
+          .forEach(function (button) {
+            const isActive = button === selectedButton;
+            button.style.background = isActive
+              ? "var(--green)"
+              : "var(--white)";
+            button.style.color = isActive ? "var(--white)" : "var(--ink)";
+            button.style.borderColor = isActive ? "var(--green)" : "#e5e0d3";
+          });
+        applyFilters();
+      }
+
+      document.querySelectorAll("[data-filter]").forEach(function (input) {
+        input.addEventListener("change", applyFilters);
+      });
+
+      filterProducts(
+        "produce",
+        document.querySelector('[data-category="produce"]'),
+      );
+    </script>
+  </body>
+</html>

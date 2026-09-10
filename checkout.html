@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout — Fresh Nook Corner Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* selectable radio-style panels for address / payment */
+      .pick {
+        border: 1.5px solid #e5e0d3;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition:
+          border-color 120ms ease,
+          background 120ms ease;
+      }
+      .pick:hover {
+        border-color: #c9bfa4;
+      }
+      .pick:has(input:checked) {
+        border-color: var(--green);
+        background: #f4f8f6;
+      }
+      .pick-radio {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        border: 1.5px solid #b9ad8e;
+        position: relative;
+      }
+      .pick input:checked ~ .pick-radio {
+        border-color: var(--green);
+      }
+      .pick input:checked ~ .pick-radio::after {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border-radius: 999px;
+        background: var(--green);
+      }
+      .pick input {
+        position: absolute;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- TOP BAR (matches storefront/cart) -->
+    <header class="sticky top-0 z-30" style="background: var(--green)">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <div
+            class="w-9 h-9 rounded-full flex items-center justify-center text-lg"
+            style="background: var(--amber)"
+          >
+            <i class="bi bi-shop" aria-hidden="true"></i>
+          </div>
+          <span class="font-display text-xl sm:text-2xl text-white leading-none"
+            >FRESH NOOK</span
+          >
+        </a>
+        <a
+          href="cart.html"
+          class="ml-auto text-sm text-white/80 hover:text-white flex items-center gap-1.5"
+        >
+          <i class="bi bi-arrow-left" aria-hidden="true"></i> Back to basket
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-32 sm:pb-16">
+      <div class="flex items-end justify-between mb-6 flex-wrap gap-3">
+        <h1
+          class="font-display text-3xl sm:text-4xl"
+          style="color: var(--green)"
+        >
+          Checkout
+        </h1>
+        <div class="flex items-center gap-2">
+          <div class="step-chip done">
+            <span class="step-dot"
+              ><i class="bi bi-check2" aria-hidden="true"></i></span
+            >Basket
+          </div>
+          <div class="step-line"></div>
+          <div class="step-chip active">
+            <span class="step-dot">2</span>Checkout
+          </div>
+          <div class="step-line"></div>
+          <div class="step-chip"><span class="step-dot">3</span>Confirmed</div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-[1fr_360px] gap-6 items-start">
+        <!-- LEFT: FORM -->
+        <div class="flex flex-col gap-5">
+          <!-- DELIVERY ADDRESS -->
+          <section
+            class="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-neutral-200/70"
+          >
+            <p class="font-display text-lg mb-4" style="color: var(--green)">
+              Deliver to
+            </p>
+
+            <label class="pick flex items-start gap-3 p-3 mb-2.5">
+              <input type="radio" name="address" checked />
+              <span class="pick-radio mt-0.5 shrink-0"></span>
+              <span class="pick-body flex-1 min-w-0">
+                <span class="block text-sm font-semibold"
+                  >Maple Residences, Blk C</span
+                >
+                <span class="block text-xs text-neutral-500 mt-0.5"
+                  >Unit 14B · Leave with the guard on duty</span
+                >
+              </span>
+              <span
+                class="text-[10px] font-bold px-2 py-0.5 rounded-full h-fit shrink-0"
+                style="background: var(--paper-light); color: var(--green)"
+                >Default</span
+              >
+            </label>
+
+            <label class="pick flex items-start gap-3 p-3 mb-3">
+              <input type="radio" name="address" />
+              <span class="pick-radio mt-0.5 shrink-0"></span>
+              <span class="pick-body flex-1 min-w-0">
+                <span class="block text-sm font-semibold"
+                  >Acacia Residences</span
+                >
+                <span class="block text-xs text-neutral-500 mt-0.5"
+                  >Unit 2F · Ring doorbell twice</span
+                >
+              </span>
+            </label>
+
+            <button class="text-xs font-semibold" style="color: var(--tomato)">
+              <i class="bi bi-plus" aria-hidden="true"></i> Add a new address
+            </button>
+          </section>
+
+          <!-- DELIVERY TIME -->
+          <section
+            class="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-neutral-200/70"
+          >
+            <p class="font-display text-lg mb-4" style="color: var(--green)">
+              When
+            </p>
+            <div class="grid grid-cols-2 gap-2.5">
+              <label class="pick flex items-center gap-2.5 p-3">
+                <input type="radio" name="when" checked />
+                <span class="pick-radio shrink-0"></span>
+                <span class="text-sm font-semibold"
+                  >As soon as possible
+                  <span class="block text-xs font-normal text-neutral-500"
+                    >Usually within the hour</span
+                  ></span
+                >
+              </label>
+              <label class="pick flex items-center gap-2.5 p-3">
+                <input type="radio" name="when" />
+                <span class="pick-radio shrink-0"></span>
+                <span class="text-sm font-semibold"
+                  >Schedule
+                  <span class="block text-xs font-normal text-neutral-500"
+                    >Pick a time slot</span
+                  ></span
+                >
+              </label>
+            </div>
+          </section>
+
+          <!-- PAYMENT -->
+          <section
+            class="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-neutral-200/70"
+          >
+            <p class="font-display text-lg mb-4" style="color: var(--green)">
+              Pay with
+            </p>
+
+            <label class="pick flex items-center gap-3 p-3 mb-2.5">
+              <input type="radio" name="pay" checked />
+              <span class="pick-radio shrink-0"></span>
+              <i class="bi bi-cash-stack text-lg" aria-hidden="true"></i>
+              <span class="flex-1 text-sm font-semibold">Cash on delivery</span>
+            </label>
+            <label class="pick flex items-center gap-3 p-3 mb-2.5">
+              <input type="radio" name="pay" />
+              <span class="pick-radio shrink-0"></span>
+              <i class="bi bi-phone text-lg" aria-hidden="true"></i>
+              <span class="flex-1 text-sm font-semibold">GCash</span>
+            </label>
+            <label class="pick flex items-center gap-3 p-3">
+              <input type="radio" name="pay" />
+              <span class="pick-radio shrink-0"></span>
+              <i class="bi bi-credit-card text-lg" aria-hidden="true"></i>
+              <span class="flex-1 text-sm font-semibold"
+                >Debit / credit card</span
+              >
+            </label>
+          </section>
+
+          <!-- NOTE -->
+          <section
+            class="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-neutral-200/70"
+          >
+            <p class="font-display text-lg mb-3" style="color: var(--green)">
+              Note for the rider
+            </p>
+            <textarea
+              rows="2"
+              placeholder="e.g. Ring the unit doorbell, not the gate"
+              class="w-full text-sm rounded-md border border-neutral-200 px-3 py-2.5 outline-none placeholder:text-neutral-400 focus:border-[var(--green)]"
+              style="background: var(--paper-light)"
+            ></textarea>
+          </section>
+        </div>
+
+        <!-- RIGHT: RECEIPT SUMMARY -->
+        <aside
+          class="bg-white rounded-lg shadow-sm border border-neutral-200/70 overflow-hidden md:sticky md:top-24"
+        >
+          <div class="p-5">
+            <p class="font-display text-lg mb-4" style="color: var(--green)">
+              Order summary
+            </p>
+
+            <div class="flex flex-col gap-2.5 text-sm mb-4">
+              <div class="flex justify-between text-neutral-600">
+                <span>Jasmine Rice ×1</span>
+                <span class="font-medium" style="color: var(--ink)">₱310</span>
+              </div>
+              <div class="flex justify-between text-neutral-600">
+                <span>Instant Noodles ×2</span>
+                <span class="font-medium" style="color: var(--ink)">₱130</span>
+              </div>
+            </div>
+
+            <div class="receipt-dash mb-3"></div>
+
+            <div class="flex flex-col gap-2.5 text-sm">
+              <div class="flex justify-between text-neutral-600">
+                <span>Subtotal</span>
+                <span class="font-medium" style="color: var(--ink)">₱440</span>
+              </div>
+              <div class="flex justify-between text-neutral-600">
+                <span>Delivery to Maple Residences, Blk C</span>
+                <span class="font-medium" style="color: var(--ink)">₱46</span>
+              </div>
+              <div class="flex justify-between" style="color: var(--tomato)">
+                <span>Buy 1 Take 1 · Noodles</span>
+                <span>included</span>
+              </div>
+            </div>
+
+            <div
+              class="mt-4 flex items-center gap-2 rounded-md px-3 py-2"
+              style="background: #fbf0dc"
+            >
+              <i class="bi bi-ticket-perforated text-sm" aria-hidden="true"></i>
+              <span class="text-xs flex-1 text-neutral-600">Promo applied</span>
+              <span class="text-xs font-semibold" style="color: var(--green)"
+                >−₱15</span
+              >
+            </div>
+
+            <div class="receipt-dash my-4"></div>
+
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">Total</span>
+              <span class="font-display text-2xl" style="color: var(--green)"
+                >₱471</span
+              >
+            </div>
+
+            <button
+              class="w-full mt-5 rounded-full py-3.5 text-sm font-semibold text-white"
+              style="background: var(--green)"
+              onclick="window.location.href = 'login.html'"
+            >
+              Place order · ₱471
+            </button>
+            <p class="text-[11px] text-neutral-400 text-center mt-2.5">
+              Pay when your order arrives
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- MOBILE STICKY PLACE ORDER BAR -->
+    <div class="fixed bottom-0 left-0 right-0 sm:hidden px-4 pb-4 pt-2 z-40">
+      <button
+        class="w-full flex items-center justify-between rounded-full px-5 py-3.5 text-white shadow-lg"
+        style="background: var(--green)"
+      >
+        <span class="text-sm font-semibold">Place order</span>
+        <span class="font-display text-base">₱471</span>
+      </button>
+    </div>
+  </body>
+</html>

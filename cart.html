@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Basket — Fresh Nook Corner Mart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .qty-btn {
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1;
+        border: 1.5px solid var(--ink);
+        background: var(--white);
+        transition: transform 120ms ease;
+      }
+      .qty-btn:hover {
+        transform: translateY(-1px);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- TOP BAR (matches storefront) -->
+    <header class="sticky top-0 z-30" style="background: var(--green)">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <div
+            class="w-9 h-9 rounded-full flex items-center justify-center text-lg"
+            style="background: var(--amber)"
+          >
+            <i class="bi bi-shop" aria-hidden="true"></i>
+          </div>
+          <span class="font-display text-xl sm:text-2xl text-white leading-none"
+            >FRESH NOOK</span
+          >
+        </a>
+        <a
+          href="index.html"
+          class="ml-auto text-sm text-white/80 hover:text-white flex items-center gap-1.5"
+        >
+          <i class="bi bi-arrow-left" aria-hidden="true"></i> Keep shopping
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-32 sm:pb-16">
+      <div class="flex items-end justify-between mb-6">
+        <h1
+          class="font-display text-3xl sm:text-4xl"
+          style="color: var(--green)"
+        >
+          Your basket
+        </h1>
+        <span class="text-sm text-neutral-500 font-medium">3 items</span>
+      </div>
+
+      <div class="grid md:grid-cols-[1fr_360px] gap-6 items-start">
+        <!-- ITEM LIST -->
+        <div class="flex flex-col gap-3">
+          <!-- Item -->
+          <div
+            class="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-neutral-200/70 flex gap-3 sm:gap-4"
+          >
+            <div
+              class="rounded-md w-16 h-16 sm:w-20 sm:h-20 shrink-0 flex items-center justify-center text-3xl sm:text-4xl"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/jasmine-rice.webp"
+                alt="Bag of jasmine rice"
+                class="h-full w-full rounded-md object-contain"
+              />
+            </div>
+            <div
+              class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4"
+            >
+              <div class="flex-1 min-w-0">
+                <p class="text-sm sm:text-base font-semibold leading-tight">
+                  Jasmine Rice
+                </p>
+                <p class="text-xs text-neutral-500">
+                  5 kg bag &nbsp;·&nbsp; ₱310 each
+                </p>
+                <button
+                  class="text-xs mt-1.5 font-medium"
+                  style="color: var(--tomato)"
+                >
+                  Remove
+                </button>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <div class="flex items-center gap-2.5">
+                  <button class="qty-btn" aria-label="Decrease quantity">
+                    <i class="bi bi-dash" aria-hidden="true"></i>
+                  </button>
+                  <span class="w-4 text-center text-sm font-semibold">1</span>
+                  <button class="qty-btn" aria-label="Increase quantity">
+                    <i class="bi bi-plus" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <span class="font-display text-lg w-16 text-right">₱310</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div
+            class="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-neutral-200/70 flex gap-3 sm:gap-4"
+          >
+            <div
+              class="relative rounded-md w-16 h-16 sm:w-20 sm:h-20 shrink-0 flex items-center justify-center text-3xl sm:text-4xl"
+              style="background: var(--paper-light)"
+            >
+              <img
+                src="assets/images/instant-noodles.webp"
+                alt="Instant noodles"
+                class="h-full w-full rounded-md object-contain"
+              />
+              <span
+                class="absolute -top-1.5 -left-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full text-white"
+                style="background: var(--amber); color: var(--ink)"
+                >B1T1</span
+              >
+            </div>
+            <div
+              class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4"
+            >
+              <div class="flex-1 min-w-0">
+                <p class="text-sm sm:text-base font-semibold leading-tight">
+                  Instant Noodles
+                </p>
+                <p class="text-xs text-neutral-500">
+                  pack of 5 &nbsp;·&nbsp; ₱65 each
+                </p>
+                <button
+                  class="text-xs mt-1.5 font-medium"
+                  style="color: var(--tomato)"
+                >
+                  Remove
+                </button>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <div class="flex items-center gap-2.5">
+                  <button class="qty-btn" aria-label="Decrease quantity">
+                    <i class="bi bi-dash" aria-hidden="true"></i>
+                  </button>
+                  <span class="w-4 text-center text-sm font-semibold">2</span>
+                  <button class="qty-btn" aria-label="Increase quantity">
+                    <i class="bi bi-plus" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <span class="font-display text-lg w-16 text-right">₱130</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Out of stock notice, tucked into the list like a shelf tag -->
+          <div
+            class="rounded-lg px-4 py-3 flex items-center gap-3 border border-dashed"
+            style="border-color: #cfc4ab; background: var(--paper-light)"
+          >
+            <img
+              src="assets/images/cooking-oil.webp"
+              alt="Cooking oil"
+              class="h-12 w-12 shrink-0 rounded-md object-contain"
+            />
+            <p class="text-xs text-neutral-600 flex-1">
+              Cooking Oil was in your last basket but is out of stock today.
+              We'll text you when it's back.
+            </p>
+          </div>
+        </div>
+
+        <!-- RECEIPT / SUMMARY -->
+        <aside
+          class="bg-white rounded-lg shadow-sm border border-neutral-200/70 overflow-hidden md:sticky md:top-24"
+        >
+          <div class="p-5">
+            <p class="font-display text-lg mb-4" style="color: var(--green)">
+              Order summary
+            </p>
+
+            <div class="flex flex-col gap-2.5 text-sm">
+              <div class="flex justify-between text-neutral-600">
+                <span>Subtotal</span>
+                <span class="text-ink font-medium" style="color: var(--ink)"
+                  >₱440</span
+                >
+              </div>
+              <div class="flex justify-between text-neutral-600">
+                <span>Delivery to Maple Residences, Blk C</span>
+                <span class="text-ink font-medium" style="color: var(--ink)"
+                  >₱46</span
+                >
+              </div>
+              <div class="flex justify-between" style="color: var(--tomato)">
+                <span>Buy 1 Take 1 · Noodles</span>
+                <span>included</span>
+              </div>
+            </div>
+
+            <div class="receipt-dash my-4"></div>
+
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">Total</span>
+              <span class="font-display text-2xl" style="color: var(--green)"
+                >₱486</span
+              >
+            </div>
+
+            <div
+              class="mt-4 flex items-center gap-2 bg-amber-50 rounded-md px-3 py-2"
+              style="background: #fbf0dc"
+            >
+              <i class="bi bi-ticket-perforated text-sm" aria-hidden="true"></i>
+              <input
+                type="text"
+                placeholder="Add promo code"
+                class="bg-transparent outline-none text-xs w-full placeholder:text-neutral-500"
+              />
+              <button
+                class="text-xs font-semibold shrink-0"
+                style="color: var(--green)"
+              >
+                Apply
+              </button>
+            </div>
+
+            <button
+              class="w-full mt-5 rounded-full py-3.5 text-sm font-semibold text-white"
+              style="background: var(--green)"
+              onclick="window.location.href = 'checkout.html'"
+            >
+              <i class="bi bi-credit-card mr-1" aria-hidden="true"></i>Checkout
+              · ₱486
+            </button>
+            <p class="text-[11px] text-neutral-400 text-center mt-2.5">
+              Usually arrives within the hour
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- MOBILE STICKY CHECKOUT BAR (matches storefront's sticky cart bar pattern) -->
+    <div class="fixed bottom-0 left-0 right-0 sm:hidden px-4 pb-4 pt-2 z-40">
+      <a
+        href="checkout.html"
+        class="w-full flex items-center justify-between rounded-full px-5 py-3.5 text-white shadow-lg"
+        style="background: var(--green)"
+      >
+        <span class="text-sm font-semibold"
+          ><i class="bi bi-credit-card mr-1" aria-hidden="true"></i
+          >Checkout</span
+        >
+        <span class="font-display text-base">₱486</span>
+      </a>
+    </div>
+  </body>
+</html>
